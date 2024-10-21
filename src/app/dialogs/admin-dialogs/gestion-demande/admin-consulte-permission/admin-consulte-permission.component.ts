@@ -79,7 +79,7 @@ export class AdminConsultePermissionComponent implements OnInit {
     getCurrentPermissionInfo() {
         this._permission.showPermission(this.item_slug).subscribe({
             next: (response: any) => {
-                //console.log(response);
+                console.log(response);
                 // INFORMATION PERSONNELLE
                 this.permission_data = response;
                 this.type_duration = response.type_duration;
@@ -143,7 +143,7 @@ export class AdminConsultePermissionComponent implements OnInit {
         this._permission.approvedOrRejectedPermission(data).subscribe({
 
             next: (response: any) => {
-
+                console.log(response);
                 if (response.code == 200) {
                     this._notificationService.openSnackBarSuccess(response);
                     setTimeout(() => {

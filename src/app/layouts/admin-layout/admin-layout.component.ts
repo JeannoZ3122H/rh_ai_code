@@ -1,4 +1,5 @@
 import { Location } from '@angular/common';
+import 'moment/locale/fr';
 import {
   Component,
   OnInit,
@@ -21,6 +22,20 @@ import {
 import {
   MainTreatmentsService,
 } from '../../services/treatments/main-treatments.service';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+
+const MY_DATE_FORMAT = {
+    parse: {
+        dateInput: 'DD/MM/YYYY', // this is how your date will be parsed from Input
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY', // this is how your date will get displayed on the Input
+        monthYearLabel: 'MMMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY'
+    }
+};
 
 @Component({
     selector: 'app-admin-layout',
@@ -30,6 +45,13 @@ import {
         MaterialModule,
         RouterModule
     ],
+
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'fr' },
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT }
+    ],
+
     templateUrl: './admin-layout.component.html',
     styleUrl: './admin-layout.component.css',
 })
@@ -77,26 +99,23 @@ export class AdminLayoutComponent implements OnInit {
             router: "/admin.mission-employe"
         },
         
-       
         {
             id: 11,
             item_name: "Liste des missions",
             item_icon: "groups",
             router: "/admin.mission-list"
-        }
-        ,
+        },
         {
             id: 12,
-            item_name: "Statistique des productions",
-            item_icon: "format_list_bulleted_add",
-            router: "/admin.statistique"
-        },
-
-        {
-            id: 13,
             item_name: "Augmentations des employes",
             item_icon: "format_list_bulleted_add",
-            router: "/admin.augmentation"
+            router: "/admin.augmentation/:slug"
+        },
+        {
+            id: 13,
+            item_name: "Gratification",
+            item_icon: "format_list_bulleted_add",
+            router: "/admin.gratification"
         },
         {
             id: 14,
@@ -106,22 +125,24 @@ export class AdminLayoutComponent implements OnInit {
         },
         {
             id: 15,
-            item_name: "Mis à disponibilité",
+            item_name: "Dotation",
             item_icon: "format_list_bulleted_add",
-            router: "/admin.disponibilite"
+            router: "/admin.dotation"
         },
         {
             id: 16,
+            item_name: "Statistique des productions",
+            item_icon: "format_list_bulleted_add",
+            router: "/admin.statistique"
+        },
+        
+        {
+            id: 17,
             item_name: "Absence non justifié",
             item_icon: "format_list_bulleted_add",
             router: "/admin.absence-no-justify"
         },
-        {
-            id: 17,
-            item_name: "Gratification",
-            item_icon: "format_list_bulleted_add",
-            router: "/admin.gratification"
-        },
+        
         {
             id: 18,
             label: 'Gestion des demandes',
@@ -181,7 +202,14 @@ export class AdminLayoutComponent implements OnInit {
             item_name: "Liste des types des congés",
             item_icon: "format_list_bulleted_add",
             router: "/admin.list-type-conge"
-        },
+        }
+        ,
+        {
+            id: 26,
+            item_name: "Liste des documents",
+            item_icon: "format_list_bulleted_add",
+            router: "/admin.doc-provider"
+        }
         
     ];
 
@@ -206,7 +234,8 @@ export class AdminLayoutComponent implements OnInit {
         private _userData: UserDataManagerService,
         private _notificationService: NotificationService,
         private _authService: AuthService,
-        private _router: Router
+        private _router: Router,
+        private __adapter: DateAdapter<Date>
 
 
     ) {
@@ -215,6 +244,7 @@ export class AdminLayoutComponent implements OnInit {
             // set screenWidth on screen size change
             this.screenWidth = window.innerWidth;
         };
+        this.__adapter.setLocale('fr')
         this._router.events.subscribe(event => {
             if (event instanceof NavigationStart) {
                 this.current_route = event.url;

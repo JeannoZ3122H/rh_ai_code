@@ -197,10 +197,14 @@ export class EmployeesWelcomeComponent implements OnInit {
 
             next: (response: any) => {
                 setTimeout(() => {
+                    // console.log(response);
                     this.list_customer_permissions = response;
                     this.customer_permission_counter = this.list_customer_permissions.length;
                     this._loading.hide_loading()
+
+                    // console.log(this.customer_permission_counter);
                 }, 1000);
+            //    console.log(response);
             },
             error: (error: any) => {
 

@@ -1,0 +1,175 @@
+<div class="hero-body">
+    <div class="container-fluid">
+        <!-- Row start -->
+        <div class="row gx-3">
+            <div class="col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title fw-bolder fs-5">
+                            <button mat-button class="default__btn__lg text-dark">
+                                <mat-icon class="example-tab-icon">view_list</mat-icon>
+                                <span class="fw-bolder text-white fs-5">Liste des missions</span>
+                            </button>
+                            <button  mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+                                {{ mission_counter }}
+                            </button>
+                        </div>
+                        <div>
+
+                            <button mat-mini-fab
+                                [matMenuTriggerFor]="guideInfo">
+                                <mat-icon>info</mat-icon>
+                            </button>
+
+                            <mat-menu #guideInfo="matMenu"
+                                xPosition="before">
+
+                                <button    mat-menu-item>
+                                    <mat-icon class="text-primary">verified</mat-icon>
+                                    <span class="">Indique que la mission a été<code class="fw-bolder">validée</code></span>
+                                </button>
+
+                                <button   mat-menu-item>
+                                    <mat-icon class="text-red">verified</mat-icon>
+                                    <span>Indique qu'une permission a été <code class="fw-bolder"> rejetée </code> </span>
+                                </button>
+
+                                <button   mat-menu-item>
+                                    <mat-icon class="text-primary">check_circle</mat-icon>
+                                    <span>Indique que la mission a été <code class="fw-bolder">consultée</code> </span>
+                                </button>
+                                
+                                <button   mat-menu-item>
+                                    <mat-icon class="text-warning">check_circle</mat-icon>
+                                    <span>Indique une <code class="fw-bolder">nouvelle</code>  mission </span>
+                                </button>
+
+                            </mat-menu>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+
+                        <div class="row gx-3">
+                            <div class="col-xxl-12 col-sm-12 col-12">
+
+                                <div class="table-responsive mt-4">
+                                    <table class="table table-striped m-0">
+                                        <thead>
+                                            <tr>
+                                                <th>#ID</th>
+                                                <th>L'ordre de la mission</th>
+                                                <th>Employé</th>
+                                                <th>Lieu de la mission</th>
+                                                <th>Consultation</th>
+                                                <th>Décision</th>
+                                                <th>Date de publication</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (customer_missions of list_missions | paginate: { itemsPerPage: 20, currentPage: p }; track $index) {
+
+                                                <tr >
+                                                    <td>#{{ $index + 1 }}</td>
+                                                    
+                                                    <td>
+                                                        <a role="button"  class="taille-texte"   (click)="consulteMission(customer_missions)" >
+                                                            <p  class="text-truncate" style="width: 200px;"  [innerHTML]="customer_missions.description" >
+
+                                                            </p>
+                                                        </a>
+                                                    </td>
+                                                    <td >
+                                                        <p >{{ customer_missions.first_name + ' '+ customer_missions.last_name }}</p>
+
+                                                    </td>
+                                                    <td><p >{{ customer_missions.lieu_mission | transformText }}</p></td>
+                                                    <td>
+
+                                                        <button [matTooltip]="customer_missions.new_actions == 1?'Consultée':'Nouveau'"  mat-icon-button>
+                                                            <mat-icon [class]="customer_missions.new_actions == 1?'text-primary':'text-warning'">check_circle</mat-icon>
+                                                        </button>
+
+                                                    </td>
+                                                    <td class="text-center">
+
+                                                        @if (customer_missions.status_on == 1) {
+                                                            <button matTooltip="Approuvée" mat-icon-button>
+                                                                <mat-icon class="text-primary">verified</mat-icon>
+                                                            </button>
+                                                        }
+                                                        @if (customer_missions.status_off == 1) {
+                                                            <button matTooltip="Réjetée" mat-icon-button>
+                                                                <mat-icon class="text-red">verified</mat-icon>
+                                                            </button>
+                                                        }
+                                                        @if (customer_missions.status_on == 0 && customer_missions.status_off == 0) {
+                                                            <button matTooltip="Aucune action" mat-icon-button>
+                                                                <mat-icon class="text-warning">unpublished</mat-icon>
+                                                            </button>
+                                                        }
+                                                       
+                                                    </td>
+                                                    <td class="text-end">
+                                                        <p >{{ customer_missions.created_at | transformDate: 'd MMMM yyyy, à HH:mm' }}</p>
+                                                    </td>
+
+                                                    <td class="text-end">
+                                                        <button mat-mini-fab color="primary"
+                                                            [matMenuTriggerFor]="beforeMenu">
+                                                            <mat-icon>more_vert</mat-icon>
+                                                        </button>
+                                                        <mat-menu #beforeMenu="matMenu"
+                                                            xPosition="before">
+                                                            <a mat-menu-item [routerLink]="['/ch.edit-mission',  customer_missions.slug]">
+                                                                <mat-icon>edit</mat-icon>
+                                                                Modifier
+                                                            </a>
+                                                            <!-- <button (click)="updateMission(customer_missions.slug)" mat-menu-item>
+                                                                    <mat-icon>edit</mat-icon>
+                                                                    Modifier
+                                                            </button> -->
+                                                            
+                                                            <button (click)="consulteMission(customer_missions)" mat-menu-item>
+                                                                <mat-icon>visibility</mat-icon>
+                                                                Consulter
+                                                            </button>
+                                                            <button (click)="deleteMission(customer_missions.slug)" mat-menu-item>
+                                                                <mat-icon>delete</mat-icon>
+                                                                Supprimer
+                                                            </button>
+                                                        </mat-menu>
+                                                    </td>
+                                                    
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="mt-4 text-center">
+                                    <pagination-controls
+                                        (pageChange)="p = $event"
+                                        previousLabel="Précédent"
+                                        nextLabel="Suivant" >
+                                   
+                                    </pagination-controls>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+    </div>
+</div>
+
+<ngx-spinner type = "ball-circus" size = "large" color = "#ef8f01" [fullScreen] = "true">
+    <p style="color: #fff; font-size: 1.2rem" > Chargement en cours... </p>
+</ngx-spinner>

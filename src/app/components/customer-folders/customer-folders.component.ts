@@ -25,12 +25,14 @@ import { EmployeesFoldersFileComponent } from '../../dialogs/employees-dialogs/e
         FormsModule,
         TransformDatePipe,
         NgxSpinnerModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        
     ],
     templateUrl: './customer-folders.component.html',
     styleUrl: './customer-folders.component.css',
 })
 export class CustomerFoldersComponent implements OnInit {
+    [x: string]: any;
 
     public libelle_dossiers: string = '';
     public folder_file: any = [];
@@ -41,6 +43,8 @@ export class CustomerFoldersComponent implements OnInit {
     public employe_matricule: string = '';
 
     public folder_employe_matricule: string = '';
+
+    public list_docprovide: any = [];
 
     constructor(
         private _notificationService: NotificationService,
@@ -54,7 +58,8 @@ export class CustomerFoldersComponent implements OnInit {
 
     ngOnInit(): void {
         this.employe_matricule = this._userData.getUserData().employe_matricule;
-        this.getCustomerDossiersList();;
+        this.getCustomerDossiersList();
+        this.getDocprovide();
     }
 
 
@@ -72,8 +77,6 @@ export class CustomerFoldersComponent implements OnInit {
             },
         });
     }
-
-
 
 
     updateDossiersDialog() {
@@ -99,7 +102,28 @@ export class CustomerFoldersComponent implements OnInit {
 
     }
 
+    getDocprovide() {
 
+        this._loading.show_loading();
+        this._traitement.getDocProvide().subscribe({
+  
+            next: (response: any) => {
+              console.log(response);
+                setTimeout(() => {
+                    this.list_docprovide = response
+                    this._loading.hide_loading();
+                }, 1000);
+            },
+            error: (error: any) => {
+                if (error.status == 401) {
+                    this._notificationService.openSnackBarTokenExpired();
+                    localStorage.clear();
+                    this._router.navigateByUrl('/');
+  
+                }
+            }
+        });
+    }
 
 
     getCustomerDossiersList() {
@@ -270,7 +294,6 @@ export class CustomerFoldersComponent implements OnInit {
             },
         });
     }
-
 
     deleteDoldersFile(slug: string) {
         this._loading.show_loading();

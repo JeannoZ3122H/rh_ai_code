@@ -57,7 +57,6 @@ export class ChEmployeesPermissionsComponent implements OnInit {
     }
 
 
-
     getPermission() {
 
         this._loadings.show_loading();
@@ -73,7 +72,6 @@ export class ChEmployeesPermissionsComponent implements OnInit {
                     //all permission
                     this.list_permissions = response.permission;
                     this.permission_counter = this.list_permissions.length;
-
 
                     // customer permission
                     this.list_customer_permissions = response.customer_permission;
@@ -100,8 +98,6 @@ export class ChEmployeesPermissionsComponent implements OnInit {
         });
     }
 
-
-
     consultePermission(data: any) {
         const dialogRef = this._dialog.open(ChDetailPermissionsComponent,
             {
@@ -117,10 +113,6 @@ export class ChEmployeesPermissionsComponent implements OnInit {
             },
         });
     }
-
-
-
-
 
     deletePermission(slug: string) {
 

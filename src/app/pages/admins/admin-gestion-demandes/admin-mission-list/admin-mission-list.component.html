@@ -73,9 +73,12 @@
 
                                                 <tr >
                                                     <td>#{{ $index + 1 }}</td>
-                                                    <td class="text-wrap">
-                                                        <a role="button"  class="taille-texte" [innerHTML]="customer_missions.description"  (click)="consulteMission(customer_missions)" >
+                                                    
+                                                    <td>
+                                                        <a role="button"  class="taille-texte"   (click)="consulteMission(customer_missions)" >
+                                                            <p  class="text-truncate" style="width: 200px;"  [innerHTML]="customer_missions.description" >
 
+                                                            </p>
                                                         </a>
                                                     </td>
                                                     <td >
@@ -107,7 +110,7 @@
                                                                 <mat-icon class="text-warning">unpublished</mat-icon>
                                                             </button>
                                                         }
-
+                                                       
                                                     </td>
                                                     <td class="text-end">
                                                         <p >{{ customer_missions.created_at | transformDate: 'd MMMM yyyy, à HH:mm' }}</p>

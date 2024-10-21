@@ -43,5 +43,7 @@ export class CustomerDetailPermissionsComponent implements OnInit {
         if (this.data != null) {
             this.permission_data = this.data;
         }
+
+        console.log(this.permission_data);
     }
 }

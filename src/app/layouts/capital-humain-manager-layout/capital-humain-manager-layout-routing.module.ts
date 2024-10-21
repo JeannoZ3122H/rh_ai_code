@@ -15,6 +15,13 @@ import { ChEmployeesPermissionsComponent } from '../../pages/capital-humains/ch-
 import { ChEditCongesComponent } from '../../pages/capital-humains/ch-employees-conges/ch-edit-conges/ch-edit-conges.component';
 import { ChEditPermissionsComponent } from '../../pages/capital-humains/ch-employees-permissions/ch-edit-permissions/ch-edit-permissions.component';
 import { ChEmployeesInfoPersonnelleComponent } from '../../pages/capital-humains/ch-employees-list/ch-employees-info-personnelle/ch-employees-info-personnelle.component';
+import { ChMissionComponent } from '../../pages/capital-humains/ch-mission/ch-mission.component';
+import { ChListMissionComponent } from '../../pages/capital-humains/ch-mission/ch-list-mission/ch-list-mission.component';
+import { ChEditMissionComponent } from '../../pages/capital-humains/ch-mission/ch-edit-mission/ch-edit-mission.component';
+import { DotationComponent } from '../../pages/admins/dotation/dotation.component';
+import { ChRuptureContratComponent } from '../../pages/capital-humains/ch-rupture-contrat/ch-rupture-contrat.component';
+import { ChProgrammeCongeComponent } from '../../pages/capital-humains/ch-programme-conge/ch-programme-conge.component';
+import { ChListProgrammeComponent } from '../../pages/capital-humains/ch-list-programme/ch-list-programme.component';
 
 const routes: Routes = [
     {
@@ -83,6 +90,38 @@ const routes: Routes = [
         component: EmployeesFolderDetailsComponent,
         data: {title: 'Detail du dossier'}
     },
+    
+    {
+        path: 'ch.missions',
+        component: ChMissionComponent,
+        data: {title: 'Programmer une mission'}
+    },
+    {
+        path: 'ch.list-misson',
+        component: ChListMissionComponent,
+        data: {title: 'Liste des missions'}
+    },
+    {
+        path: 'ch.programme-conge',
+        component: ChProgrammeCongeComponent,
+        data: {title: 'Programme des congés'}
+    },
+    {
+        path: 'ch.list-programme-conge',
+        component: ChListProgrammeComponent,
+        data: {title: 'Liste des programmes des congés'}
+    },
+    {
+        path: 'ch.edit-mission/:slug',
+        component: ChEditMissionComponent,
+        data: {title: 'Modifier une mission'}
+    },
+    {
+        path: 'ch.rupture-contrat',
+        component: ChRuptureContratComponent,
+        data: {title: 'Rupture Contrat'}
+    },
+
 
     // ROUTER GESTION DE PAIE
 
@@ -107,6 +146,18 @@ const routes: Routes = [
         component: ChEmployeesEvaluationsComponent,
         data: {title: 'Evaluation des employes'}
     },
+   
+    {
+        path: 'ch.dotation',
+        component: DotationComponent,
+        data: { title: 'Dotation de materiel' },
+    }
+    ,
+    {
+        path: 'ch.rupture-contrat',
+        component: ChRuptureContratComponent,
+        data: { title: 'Rupture de contrat' },
+    }
 ];
 
 @NgModule({

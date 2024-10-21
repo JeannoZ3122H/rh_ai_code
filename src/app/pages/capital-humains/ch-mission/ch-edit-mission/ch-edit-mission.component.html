@@ -1,0 +1,157 @@
+
+<div class="hero-header ">
+    <div class="container-fluid">
+        <!-- Row start -->
+        <div class="row gx-3">
+            <div class="col-xxl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="d-flex justify-content-center">
+                                <button  class="me-2" mat-fab extended [color]="switcher_is_active == true ? 'warn':'primary'" >
+                                    <mat-icon>assignment_add</mat-icon>
+                                    Formulaire d'envoi en mission
+                                </button>
+                                     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+    </div>
+</div>
+
+<div class="hero-body">
+    <!-- Row start -->
+
+    <div class="row gx-3">
+        <div class="col-xxl-12 col-sm-12 col-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                        <div  class="row gx-3 justify-content-center mb-3">
+
+                            <div class="col-12">
+                                <h1 class="text-primary fw-bolder">Formulaire de programmation de mission</h1>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Emlpoyé</mat-label>
+                                    <mat-select  (selectionChange)="onChangeListeemploye($event)">
+                                        @for (emplye of list_employes; track $index) {
+                                            <mat-option class="fw-bolder"  [value]="emplye.employe_matricule">
+                                                {{
+                                                    emplye.last_name
+                                                }}
+                                            </mat-option>
+                                        }
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                          
+                            <div class="col-md-12">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Le lieu <code class="fs-4"></code></mat-label>
+                                    <input [(ngModel)]="lieu_mission" matInput placeholder="Le lieu_mission">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <angular-editor [placeholder]="'Ordre de mission...'" [(ngModel)]="description"></angular-editor>
+
+                                <!-- <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>Description</mat-label>
+                                    <textarea rows="3" [(ngModel)]="description" matInput placeholder="description"></textarea>
+                                </mat-form-field> -->
+                            </div>
+
+                            <div class="row gx-3 mb-3">
+                                <div class=" col-lg-12 col-md-12 text-center mb-2" >
+                                    <h1 class="text-center mb-3">Durée de la mission</h1>
+                                    <!-- <mat-radio-group (change)="PermissionDurationChange($event)" aria-label="Select an option">
+                                        <mat-radio-button value="date">En jours</mat-radio-button>
+                                    </mat-radio-group> -->
+                                </div>
+
+                                <div class="row justify-content-center">
+
+                                        <div  class="col-lg-4 col-md-6">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Date début de la mission</mat-label>
+                                                <input [(ngModel)]="date_start" matInput
+                                                    [matDatepicker]="Date_start"
+                                                    placeholder="00/00/0000"
+                                                >
+                                                <mat-datepicker-toggle matIconSuffix [for]="Date_start"></mat-datepicker-toggle>
+                                                <mat-datepicker #Date_start></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                   
+                                        <div  class="col-lg-4 col-md-6">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Date fin de la mission</mat-label>
+                                                <input [(ngModel)]="date_end" matInput [matDatepicker]="Date_end">
+                                                <mat-datepicker-toggle matIconSuffix [for]="Date_end"></mat-datepicker-toggle>
+                                                <mat-datepicker #Date_end></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                </div>
+
+                                <div class="row gx-3 mb-3 justify-content-center">
+                                    <div class=" col-lg-8 col-md-12 text-center" >
+                                        <button (click)="updateMission()" mat-fab extended color="primary" >
+                                            <mat-icon>save</mat-icon>
+                                            Modifier
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                
+                    
+                    <!-- @if (is_switching_leave == true) {
+                        <div class="row gx-3 justify-content-center mb-3">
+                            
+                            <div class="col-12">
+                                <h1 class="fw-bolder text-danger">Programmation des missions</h1>
+                            </div>
+
+
+                            <div class="col-lg-12 mb-3">
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>Le programme</mat-label>
+                                    <textarea rows="3" [(ngModel)]="description" matInput placeholder="Ex. Le motif du congés..."></textarea>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="row gx-3 mb-3 justify-content-center">
+                                <div class=" col-lg-8 col-md-12 text-center" >
+                                    <button (click)="saveMission()" mat-fab extended color="primary" >
+                                        <mat-icon>save</mat-icon>
+                                        Enregistrer
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    } -->
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Row end -->
+</div>
+
+
+<ngx-spinner type="ball-circus" size="large" color="#ef8f01"
+    [fullScreen]="fullscreen">
+    <p style="color: #fff; font-size: 1.2rem"> Chargement en cours... </p>
+</ngx-spinner>

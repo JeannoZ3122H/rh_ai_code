@@ -44,11 +44,9 @@ export class FullEditPermissionsFormsComponent implements OnInit {
 
     public dead_line_assigment: any;
 
-
     public old_date: string = '';
 
     public selectedDureeOption: string = '';
-
 
     public duration_is_hour: boolean = false
     public hour_start: any;
@@ -285,13 +283,9 @@ export class FullEditPermissionsFormsComponent implements OnInit {
 
     }
 
-
-
-
     changeFile() {
         this.old_assignment_file = null;
     }
-
 
     // CALCULATE HOUR DURATION
 

@@ -1,4 +1,6 @@
 import { Location } from '@angular/common';
+
+import 'moment/locale/fr';
 import {
   Component,
   OnInit,
@@ -21,6 +23,20 @@ import {
 import {
   MainTreatmentsService,
 } from '../../services/treatments/main-treatments.service';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+
+const MY_DATE_FORMAT = {
+    parse: {
+        dateInput: 'DD/MM/YYYY', // this is how your date will be parsed from Input
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY', // this is how your date will get displayed on the Input
+        monthYearLabel: 'MMMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY'
+    }
+};
 
 @Component({
     selector: 'app-capital-humain-manager-layout',
@@ -29,6 +45,11 @@ import {
         RouterOutlet,
         MaterialModule,
         RouterModule
+    ],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'fr' },
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT }
     ],
     templateUrl: './capital-humain-manager-layout.component.html',
     styleUrl: './capital-humain-manager-layout.component.css',
@@ -51,11 +72,46 @@ export class CapitalHumainManagerLayoutComponent implements OnInit {
             router: "/ch.employees-infos"
         },
         {
-            id: 3,
+            id:3,
+            item_name: "Rupture de contrat",
+            item_icon: "format_list_bulleted_add",
+            router: "/ch.rupture-contrat"
+        },
+        {
+            id: 4,
             item_name: "Liste des employés",
             item_icon: "group",
             router: "/ch.employees"
         },
+        {
+            id: 5,
+            label: 'Gestion des missions',
+            item_name: "Programmation",
+            item_icon: "group",
+            router: "/ch.missions"
+        },
+       
+        {
+            id: 6,
+            item_name: "Liste des missions",
+            item_icon: "group",
+            router: "/ch.list-misson"
+        },
+        {
+            id: 7,
+            label: 'Autres gestions',
+            item_name: "Rupture de contrat",
+            item_icon: "format_list_bulleted_add",
+            router: "/ch.rupture-contrat"
+        },
+        {
+            id:8,
+            item_name: "Dotation",
+            item_icon: "format_list_bulleted_add",
+            router: "/ch.dotation"
+        },
+        
+        
         /**
         {
             id: 6,
@@ -101,6 +157,18 @@ export class CapitalHumainManagerLayoutComponent implements OnInit {
         },
         {
             id: 14,
+            item_name: "Programmer un congé",
+            item_icon: "format_list_bulleted",
+            router: "/ch.programme-conge"
+        },
+        {
+            id: 15,
+            item_name: "Liste des programmes des congés",
+            item_icon: "format_list_bulleted",
+            router: "/ch.list-programme-conge"
+        },
+        {
+            id: 16,
             label: 'Evaluation employés',
             item_name: "Evaluation",
             item_icon: "elevator",
@@ -108,15 +176,12 @@ export class CapitalHumainManagerLayoutComponent implements OnInit {
         },
 
         {
-            id: 15,
+            id: 17,
             label: 'Dossiers employés',
             item_name: "Liste dossiers",
             item_icon: "folder",
             router: "/ch.dossiers-employes"
         }
-
-
-
 
     ];
 
@@ -131,7 +196,6 @@ export class CapitalHumainManagerLayoutComponent implements OnInit {
     public current_date: Date = new Date();
     public code_date_echeance: string = '';
 
-
     constructor(
         private _location: Location,
 
@@ -140,14 +204,15 @@ export class CapitalHumainManagerLayoutComponent implements OnInit {
         private _userData: UserDataManagerService,
         private _notificationService: NotificationService,
         private _authService: AuthService,
-        private _router: Router
+        private _router: Router,
+        private __adapter: DateAdapter<Date>,
     ) {
         this.screenWidth = window.innerWidth;
         window.onresize = () => {
             // set screenWidth on screen size change
             this.screenWidth = window.innerWidth;
         };
-
+        this.__adapter.setLocale('fr');
         this._router.events.subscribe(event => {
             if (event instanceof NavigationStart) {
                 this.current_route = event.url;

@@ -7,6 +7,7 @@ import { CustomerListPermissionsComponent } from '../../components/customer-dema
 import { CustomerFoldersComponent } from '../../components/customer-folders/customer-folders.component';
 import { CustomerEvaluationsComponent } from '../../components/customer-evaluations/customer-evaluations.component';
 import { FullDemandesFormsComponent } from '../../components/customer-demandes/full-demandes-forms/full-demandes-forms.component';
+import { CustomerRuptureContratComponent } from '../../components/customer-demandes/customer-rupture-contrat/customer-rupture-contrat.component';
 
 const routes: Routes = [
     {
@@ -46,25 +47,29 @@ const routes: Routes = [
         component: CustomerEvaluationsComponent,
         data: {title: 'Liste des évaluations'}
     },
-
+    {
+        path: 'employees.rupture-contrat',
+        component: CustomerRuptureContratComponent,
+        data: {title: 'Rupture de contrat'}
+    },
 
     // ROUTER GESTION DE PAIE
     /*
-    {
-        path: 'rh.salary',
-        component: SalaryEmployeesComponent,
-        data: {title: 'Liste salaire des emplyés'}
-    },
-    {
-        path: 'rh.salary_view',
-        component: SalaryViewComponent,
-        data: {title: 'Fiche de paie'}
-    },
-    {
-        path: 'rh.payroll_item',
-        component: PayrollItemsComponent,
-        data: {title: 'Fiche de paie'}
-    },
+        {
+            path: 'rh.salary',
+            component: SalaryEmployeesComponent,
+            data: {title: 'Liste salaire des emplyés'}
+        },
+        {
+            path: 'rh.salary_view',
+            component: SalaryViewComponent,
+            data: {title: 'Fiche de paie'}
+        },
+        {
+            path: 'rh.payroll_item',
+            component: PayrollItemsComponent,
+            data: {title: 'Fiche de paie'}
+        },
     */
 ];
 

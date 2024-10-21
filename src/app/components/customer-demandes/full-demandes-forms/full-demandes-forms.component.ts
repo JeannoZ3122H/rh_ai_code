@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../material-module';
 import { Router, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TransformDatePipe } from '../../../customer-pipe/transform-date.pipe';
 import { NotificationService } from '../../../services/notifications/notification.service';
 import { MainTreatmentsService } from '../../../services/treatments/main-treatments.service';
@@ -12,6 +12,8 @@ import { PermissionService } from '../../../services/treatments/permissions/perm
 import { UserDataManagerService } from '../../../services/data-managers/user-data/user-data-manager.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+import moment from 'moment';
+import { AngularEditorModule, AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
     selector: 'app-full-demandes-forms',
@@ -23,12 +25,55 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
         FormsModule,
         TransformDatePipe,
         NgxSpinnerModule,
-        NgxMatTimepickerModule
+        NgxMatTimepickerModule,
+        NgxSpinnerModule, 
+        MaterialModule, 
+        FormsModule, 
+        ReactiveFormsModule, 
+        AngularEditorModule
+
     ],
     templateUrl: './full-demandes-forms.component.html',
     styleUrl: './full-demandes-forms.component.css',
 })
 export class FullDemandesFormsComponent implements OnInit {
+
+    config: AngularEditorConfig = {
+        editable: true,
+        spellcheck: true,
+        height: '10rem',
+        minHeight: '20rem',
+        placeholder: "Le motif du congés",
+        translate: 'no',
+        defaultParagraphSeparator: 'p',
+        defaultFontName: 'Arial',
+        toolbarHiddenButtons: [
+          ['bold']
+          ],
+
+          fonts: [
+            {class: 'arial', name: 'Arial'},
+            {class: 'times-new-roman', name: 'Times New Roman'},
+            {class: 'calibri', name: 'Calibri'},
+            {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+          ],
+
+        customClasses: [
+          {
+            name: "quote",
+            class: "quote",
+          },
+          {
+            name: 'redText',
+            class: 'redText'
+          },
+          {
+            name: "titleText",
+            class: "titleText",
+            tag: "h1",
+          },
+        ]
+      };
 
     public is_switching_assigment: boolean = true;
     public is_switching_leave: boolean = false;
@@ -46,8 +91,8 @@ export class FullDemandesFormsComponent implements OnInit {
 
     public list_type_conge: any = [];
 
-    public date_depart: any;
-    public date_retour: any;
+    public date_depart = moment();
+    public date_retour = moment();
 
 
     public duration_is_hour: boolean = false
@@ -57,8 +102,8 @@ export class FullDemandesFormsComponent implements OnInit {
     public date_permission: Date = new Date();
 
     public duration_is_date: boolean = false;
-    public date_start: any;
-    public date_end: any;
+    public date_start = moment();
+    public date_end = moment();
 
 
     public type_duration: string = "";
@@ -81,9 +126,10 @@ export class FullDemandesFormsComponent implements OnInit {
 
     ngOnInit(): void {
 
+
         this.employe_matricule = this._userData.getUserData().employe_matricule;
 
-
+        // console.log(this.employe_matricule);
 
         this.getTypeCongeList();
         this.getAllResponsable();
@@ -94,9 +140,7 @@ export class FullDemandesFormsComponent implements OnInit {
     }
 
     radioChange(event: any) {
-
         this.is_choose = event.value;
-
     }
 
     PermissionDurationChange(event: any)
@@ -185,10 +229,14 @@ export class FullDemandesFormsComponent implements OnInit {
     savePermission() {
         this._loading.show_loading();
 
-        let duree_heure = this.calculateDifferenceBetweenTwoHours(this.hour_start, this.hour_end);
-        let duree_jour = this.calculateDifferenceBetweenDates(this.date_start, this.date_end);
+        // console.log(this.date_start, this.date_end);
 
-        //console.log(this.assigment_file);
+
+        let duree_jour = this.calculateDifferenceBetweenDates(this.date_start, this.date_end);
+        let duree_heure = this.calculateDifferenceBetweenTwoHours(this.hour_start, this.hour_end);
+        
+        //console.log(duree_jour);
+        //this._loading.hide_loading();
         //return;
         const formData: FormData = new FormData();
         formData.append("employe_matricule", this.employe_matricule);
@@ -196,11 +244,12 @@ export class FullDemandesFormsComponent implements OnInit {
         formData.append("destinataire", this.responsable);
         formData.append("date_permission", this.formatDate(this.date_permission).toString());
 
-
         if(duree_heure == undefined)
-        {formData.append("duree_permission", duree_jour);}
+            {formData.append("duree_permission", duree_jour);}
         else
-        {formData.append("duree_permission", duree_heure);}
+        {
+            formData.append("duree_permission", duree_heure);}
+            //return
 
         if (duree_heure == undefined) {
             formData.append("permission_end", this.formatDate(this.date_end).toString());
@@ -217,7 +266,7 @@ export class FullDemandesFormsComponent implements OnInit {
         this._permission.demandePermissions(formData).subscribe({
 
             next: (response: any) => {
-                //console.log(response);
+                // console.log(response)
                 if (response.code == 200) {
                     this._notificationService.openSnackBarSuccess(response);
                     setTimeout(() => {
@@ -255,9 +304,9 @@ export class FullDemandesFormsComponent implements OnInit {
     saveConge() {
         this._loading.show_loading();
 
+        console.log(this.date_depart);
         let duree_jour = this.calculateDifferenceBetweenDates(this.date_depart, this.date_retour);
 
-        //console.log(duree_jour);
 
         //return
         const data = {
@@ -323,8 +372,7 @@ export class FullDemandesFormsComponent implements OnInit {
     calculateDifferenceBetweenDates(date1: any, date2: any): any {
 
         if(date1 != undefined && date2 != undefined) {
-            let differenceEnMilliseconds = Math.abs(date2.getTime() - date1.getTime());
-            let differenceEnJours = differenceEnMilliseconds / (1000 * 3600 * 24);
+            let differenceEnJours = date2.diff(date1, 'days');
 
             return differenceEnJours + 'Jour(s)';
         } else {

@@ -200,7 +200,7 @@ saveMission() {
 
     let duree_jour = this.calculateDifferenceBetweenDates(this.date_start, this.date_end);
 
-    console.log(duree_jour);
+    // console.log(duree_jour);
     //return;
     const formData: FormData = new FormData();
     formData.append("employe_matricule", this.employe_selected);

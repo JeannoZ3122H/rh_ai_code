@@ -155,7 +155,6 @@
                                     }
                                 </div>
 
-
                                 @if (duration_is_hour == true || duration_is_date == true ) {
                                     <div  class=" col-lg-12 col-md-12 text-center" >
                                         <h1 class="text-center mb-3">Joindre une pièce justificative</h1>
@@ -196,7 +195,6 @@
                                 <h1 class="fw-bolder text-danger">Formulaire de demande de congé</h1>
                             </div>
 
-
                             <div class="col-lg-6">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Date de depart de congé</mat-label>
@@ -205,6 +203,7 @@
                                     <mat-datepicker #Date_depart></mat-datepicker>
                                 </mat-form-field>
                             </div>
+                            
                             <div class="col-lg-6">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Date de retour de congé</mat-label>
@@ -258,10 +257,8 @@
                             </div>
 
                             <div class="col-lg-12 mb-3">
-                                <mat-form-field appearance="outline" class="example-full-width">
-                                    <mat-label>Le motif du congés</mat-label>
-                                    <textarea rows="3" [(ngModel)]="motif" matInput placeholder="Ex. Le motif du congés..."></textarea>
-                                </mat-form-field>
+                                <label for="texte">Le motif du congés</label>
+                                <angular-editor [placeholder]="'Ex. Le motif du congés...'" [(ngModel)]="motif"></angular-editor>
                             </div>
 
                             <div class="row gx-3 mb-3 justify-content-center">

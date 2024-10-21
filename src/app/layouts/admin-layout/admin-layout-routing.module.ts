@@ -1,3 +1,4 @@
+import { DotationComponent } from './../../pages/admins/dotation/dotation.component';
 import { GratificationComponent } from './../../pages/admins/gratification/gratification.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -25,6 +26,7 @@ import { AugmentationComponent } from '../../pages/admins/augmentation/augmentat
 import { RuptureContratComponent } from '../../pages/admins/rupture-contrat/rupture-contrat.component';
 import { MisADisponibiliteComponent } from '../../pages/admins/mis-a-disponibilite/mis-a-disponibilite.component';
 import { AbsenceNonJustifieComponent } from '../../pages/admins/absence-non-justifie/absence-non-justifie.component';
+import { AdminDocProvideComponent } from '../../pages/admins/admin-doc-provide/admin-doc-provide.component';
 
 const routes: Routes = [
 
@@ -131,7 +133,7 @@ const routes: Routes = [
         data: { title: 'Statistique de production des journalistes' },
     },
     {
-        path: 'admin.augmentation',
+        path: 'admin.augmentation/:slug',
         component: AugmentationComponent,
         data: { title: 'Augmentations des employe' },
     },
@@ -141,9 +143,9 @@ const routes: Routes = [
         data: { title: 'Rupture de contrat' },
     },
     {
-        path: 'admin.disponibilite',
-        component: MisADisponibiliteComponent,
-        data: { title: 'Mis a disponibilité' },
+        path: 'admin.dotation',
+        component: DotationComponent,
+        data: { title: 'Dotation de materiel' },
     },
     {
         path: 'admin.absence-no-justify',
@@ -154,6 +156,11 @@ const routes: Routes = [
         path: 'admin.gratification',
         component: GratificationComponent,
         data: { title: 'Gratification' },
+    },
+    {
+        path: 'admin.doc-provider',
+        component: AdminDocProvideComponent,
+        data: { title: 'Document à fournir' },
     }
 ];
 

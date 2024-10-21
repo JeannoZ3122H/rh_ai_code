@@ -18,7 +18,6 @@
             Paramètres
         </button>
 
-
     </div>
 
     <mat-menu #Report="matMenu" class="custom_menu_dialog">
@@ -52,6 +51,7 @@
     <mat-menu #userDropleft="matMenu" class="custom_menu_dialog">
 
         <div class="customer_menu_modal">
+            
             <div class="customer_menu_modal_header p-3">
                 <h3 class="text-center fw-bolder">
                     <img class="img-radius rounded-circle mb-3" [src]="photo" width="80" height="80" alt="">
@@ -60,19 +60,18 @@
             </div>
 
             <div class="customer_menu_modal_body">
-
+                
                 <mat-divider></mat-divider>
-
                 <button mat-menu-item (click)="logOut(user_id)" >
                     <mat-icon class="text-danger">logout</mat-icon>
                     <span class="text-primary fw-bolder">Se déconnecter</span>
                 </button>
+
             </div>
+
         </div>
     </mat-menu>
 </mat-toolbar>
-
-
 
 <mat-drawer-container class="default__drawer__conrainer " >
     <mat-drawer class="default__drawer customer_bg-warning" #drawer [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'">

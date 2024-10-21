@@ -102,6 +102,29 @@ export class MainTreatmentsService {
 
     //END BUREAU
 
+    // DOCUMENT PROVIDERS
+
+    saveDocProvide = (data: any) => {
+        const url = this._api_url.apiUrl + 'store_docprovide';
+        return this._http.post(url, data, this.getToken());
+    }
+    getDocProvide = () => {
+        const url = this._api_url.apiUrl + 'get_docprovide';
+        return this._http.get(url,this.getToken());
+    }
+
+    updateDocProvide = (data: any ,slug: string) => {
+        const url = this._api_url.apiUrl + 'update_docprovide/' + slug;
+        return this._http.post(url, data, this.getToken());
+    }
+
+    destroyDocProvide = (slug: string) => {
+        const url = this._api_url.apiUrl + 'destroy_docprovide/' + slug;
+        return this._http.get(url, this.getToken());
+    }
+
+    //END DOCUMENT PROVIDERS
+
 
 
     // TYPE CONGES

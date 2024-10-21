@@ -24,7 +24,7 @@ export class MissionService {
   }
 
 
-  // send data conges
+  // send data mission
   AddMissions = (data: any) => {
       const url = this._api_url.apiUrl + 'store_missions';
       return this._http.post(url, data, this.getToken());
@@ -37,20 +37,20 @@ export class MissionService {
       return this._http.get(url, this.getToken());
   }
 
-  // SHOW PERMISSION
+  // SHOW MISSION
   showMission = (slug: string) => {
       const url = this._api_url.apiUrl + 'edit_missions/' + slug;
 
       return this._http.get(url, this.getToken());
   }
 
-  // updateDemandePermission
+  // updateMission
   updateMission = (slug: any, data: any) => {
       const url = this._api_url.apiUrl + 'update_missions/' + slug;
       return this._http.post(url, data, this.getToken());
   }
 
-  // deleteDemandePermission
+  // deleteMission
   deleteMission = (slug: string) => {
       const url = this._api_url.apiUrl + 'destroy_missions/' + slug;
 
@@ -59,30 +59,30 @@ export class MissionService {
 
 
 
-  // get customer permission
+  // get customer Mission
   getCustomerMission = (employe_matricule: any) => {
       const url = this._api_url.apiUrl + 'customers_missions/' + employe_matricule;
       return this._http.get(url, this.getToken());
   }
 
-  // get  permission
+  // get  Mission
   getMission = (employe_matricule: any) => {
       const url = this._api_url.apiUrl + 'get_missions/' + employe_matricule;
       return this._http.get(url, this.getToken());
   }
 
 
-  // get all permission
+  // get all Mission
   getAllMission = () => {
       const url = this._api_url.apiUrl + 'get_all_mission';
       return this._http.get(url, this.getToken());
   }
   
-  // approvedOrRejectedPermission
+  // approvedOrRejectedMission
   approvedOrRejectedMission = (data: any) => {
-      const url = this._api_url.apiUrl + 'approved_or_rejected_permission';
+      const url = this._api_url.apiUrl + 'approved_or_rejected_missions';
       return this._http.post(url, data, this.getToken());
-  }
+  } 
 
   // updateIsConsultingStatus
   updateIsConsultingStatus = (slug: string) => {

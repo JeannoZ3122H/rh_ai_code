@@ -1,0 +1,253 @@
+<h1 mat-dialog-title>
+    Détail de la mission
+    <button mat-raised-button color="primary" mat-dialog-close>Fermer</button>
+</h1>
+<div mat-dialog-content style="max-height: 95vh ">
+
+    <div class="container-fluid">
+        <div class="row gx-3">
+            <div class="col-xxl-12">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <div class="card">
+                            @if (loading == true) {
+                                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                            }
+
+                            <div class="card-header d-flex justify-content-between mb-3">
+                                <span class="me-2">
+                                    <mat-icon class="text-red">notifications</mat-icon>
+                                </span>
+                                <div class="card-title text-primary fs-5 fw-bolder">
+                                    Réserver au directeur
+                                </div>
+                                <div class="text-end">
+
+                                    <button (click)="printMission()" class="" mat-fab  >
+                                        <mat-icon>print</mat-icon>
+                                    </button>
+
+                                </div>
+                            </div>
+
+                            <!-- <div class="card-body text-center position-relative pt-4">
+                                <div class="card-title fs-3 mb-3 text-center">Décision de la mission</div>
+
+                                <div class="row">
+
+                                    @if (status_on == 1) {
+                                        <div
+                                            class="alert box-bdr-green alert-dismissible fade show text-green" role="alert">
+                                            <mat-icon class="text-danger">notifications</mat-icon>
+                                            Vous avez déjà donné votre approbation à cette mission.
+                                        </div>
+                                    }
+                                    @if (status_off == 1) {
+                                        <div
+                                            class="alert box-bdr-red alert-dismissible fade show text-red" role="alert">
+                                            <mat-icon class="text-red">notifications</mat-icon>
+                                            Vous avez déjà donné votre approbation à cette mission.
+                                        </div>
+                                    }
+
+                                    @if (status_on == 0 && status_off == 0) {
+                                        <div class="col-md-12 col-lg-12 mb-4">
+                                            <mat-radio-group (change)="MissionDecisionChange($event)" aria-label="Select an option">
+                                                <mat-radio-button value="approved">
+                                                    <span class="fw-bolder fs-4">Approuver</span>
+                                                </mat-radio-button>
+                                                <mat-radio-button value="rejected">
+                                                    <span class="fw-bolder fs-4">Rejeter</span>
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    }
+                                    @if (show_comment_box == true) {
+                                        <div class="col-md-12 col-lg-12 mb-4">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>Laissez une note sur la décision...</mat-label>
+                                                <textarea [(ngModel)]="decision_comments" matInput maxlength="160" placeholder="Ex. mission approuvée..."></textarea>
+                                                <mat-hint align="start"><strong>Nombre de caractère limité à 160</strong> </mat-hint>
+                                                <mat-hint align="end">{{decision_comments.length}} / 160</mat-hint>
+                                            </mat-form-field>
+                                        </div>
+                                    }
+                                    @if (show_comment_box == true) {
+                                        <div>
+                                            <button (click)="saveDecision()" class="w-100" mat-raised-button color="primary">Enregistrer votre décision</button>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div> -->
+                          
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="card" id="mission_card">
+                            <div class="card-header">
+                                <div class="card-title">Réf mission - #{{ mission_ref }} </div>
+                            </div>
+                            <div class="card-body">
+                                <!-- Row start -->
+                                <div class="row align-items-center mb-4">
+                                    <div class="col-xl-2 col-sm-3 col-12">
+                                        <img src="assets/media/logoai.png" width="100" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="col-xl-10 col-sm-9 col-12">
+                                        <p class="text-end m-0 fw-bolder">
+
+                                            <span class="fw-bolder  fs-5">Alerte Info </span>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Row end -->
+
+                                <!-- Row start -->
+                                <div class="row gx-3">
+                                    <div class="col-sm-12 col-12">
+                                        <div class="d-flex justify-content-end my-4">
+                                            <div>
+                                                <p class="m-0">
+                                                    <span class="fw-bolder ">Date de la mission,</span><br>
+                                                    <span  class="fw-bolder text-red text-uppercase">{{ mission_start | date: 'dd MMMM yyyy' }}</span>
+                                                </p>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row gx-3 mb-2">
+
+                                    <div class="col-sm-12 col-12 mb-3">
+                                        <p class="m-0">
+                                            <span class="fw-bolder">Durée de la mission,</span><br>
+                                            
+                                                <span class="fw-bolder ">
+                                                    <span class="fw-bolder text-red">
+                                                        {{
+                                                            duree_mission
+                                                        }}
+                                                    </span><br>
+                                                    du
+                                                    {{
+                                                        mission_start | date: 'dd MMMM yyyy'
+                                                    }} au {{ mission_end | date: 'dd MMMM yyyy' }}
+                                                </span>
+                                           
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p class="m-0 text-end">
+                                            <span class="fw-bolder ">Faire à Abidjan le,</span><br>
+                                            <span class="fw-bolder text-red text-uppercase">{{ created_at | date: 'dd MMMM yyyy, à HH:mm' }}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Row end -->
+
+                                <!-- Row start -->
+                                <div class="row gx-3">
+                                    <div class="col-12">
+                                        <!-- <div class="table-responsive mb-3">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th><span class=" text-center text-uppercase">Nom & Prénom</span></th>
+                                                        <th><span class=" text-center text-uppercase">Fonction</span></th>
+                                                        <th><span class=" text-center text-uppercase">Service</span></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="text-center ">{{ customer_name }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="text-center ">{{ fonction }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="text-center">{{ service }}</span>
+                                                        </td>
+                                                       
+
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div> -->
+                                        <div class="text-center mb-3">
+                                            <h1 class="fw-bolder  text-uppercase">
+                                                <u class="fw-bolder" >ORDRE DE MISSION</u>
+                                            </h1>
+                                        </div>
+                                        <p class="mb-4" [innerHTML]="description"></p> <br>
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <p class="m-0 text-start mb-4">
+                                                    <span class="fw-bolder text-start">Approbation</span><br>
+                                                    @if (decision_dg == 1) {
+                                                        <button  mat-fab extended color="primary">
+                                                            <mat-icon>done_outline</mat-icon>
+                                                            Mission approuvée
+                                                        </button>
+                                                    }
+                                                    @if (decision_dg == 1) {
+                                                        <button  mat-fab extended color="warn">
+                                                            <mat-icon>done_outline</mat-icon>
+                                                            Mission réjetée
+                                                        </button>
+                                                    }
+                                                    @if (decision_dg == 0 && decision_dg == 0) {
+                                                        <button mat-fab extended color="warn">
+                                                            <mat-icon>no_accounts</mat-icon>
+                                                            Accune action
+                                                        </button>
+                                                    }
+
+                                                </p>
+
+                                                @if (status_on == 1 || status_off == 1) {
+                                                    <div class="alert alert-light alert-dismissible fade show" role="alert">
+                                                        <mat-icon class="text-danger alert-icon">notifications</mat-icon>
+                                                        {{ comments }}
+                                                    </div>
+                                                }
+
+                                            </div>
+                                            <div class="d-flex justify-content-end my-4">
+                                                <p class="m-0 text-center">
+                                                    <span class="fw-bolder text-dark">Le Gérant et Directeur Général</span><br>
+                                                    <span class="fw-bolder text-dark ">LDr David YOUANT</span><br>
+                                                @if (status_on == 1 ) {
+                                                    <div class="justiffy-content-center mb-4serve">
+                                                         <img src="assets/media/signature.png" width="100" alt="" class="img-fluid">
+                                                    </div>
+                                                   
+                                                }  
+                                                </p> 
+                                               
+                                            </div> 
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <p class="m-0 text-center">
+                                        ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                        SARL: Capital 5.000.000 FCFA, Direction Générale et Bureau d’Abidjan, Bvd du Gabon
+                                        Abidjan Marcory-Hibiscus Immeuble La Madone 2e Etage, Escaliers A et B
+                                        Tél (225) 27 21 26 19 40 – 27 21 26 20 22 – 01 02 500 320 / 01 02 500 321 / 01 02 500 323 / BP : 3417 Abidjan 09
+                                        CC: 0731049 N/ CNPS: 147 660  RC: CIABJ 2007 B3132 – ECOBANK-CI: CI059 01031 121317993001 93 www.<a href="www.alerte-info.net">alerte-info</a> <a href="direction@alerte-info.net"></a> / www.direction-alerte-info
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

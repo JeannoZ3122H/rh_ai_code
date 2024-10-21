@@ -66,11 +66,13 @@ export class CustomerListPermissionsComponent implements OnInit {
         this._permission.getCustomerPermission(this.employe_matricule).subscribe({
 
             next: (response: any) => {
+                // console.log(response)
                 setTimeout(() => {
                     this.list_customer_permissions = response;
                     this.customer_permission_counter = this.list_customer_permissions.length;
                     this._loading.hide_loading()
                 }, 1000);
+
             },
             error: (error: any) => {
 
@@ -86,8 +88,6 @@ export class CustomerListPermissionsComponent implements OnInit {
 
         });
     }
-
-
 
     consultePermission(data: any) {
         const dialogRef = this._dialog.open(CustomerDetailPermissionsComponent,
@@ -121,8 +121,6 @@ export class CustomerListPermissionsComponent implements OnInit {
             },
         });
     }
-
-
 
     deletePermission(slug: string) {
 

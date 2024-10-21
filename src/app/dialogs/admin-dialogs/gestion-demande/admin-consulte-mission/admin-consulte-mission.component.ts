@@ -153,7 +153,7 @@ export class AdminConsulteMissionComponent implements OnInit {
       this._mission.approvedOrRejectedMission(data).subscribe({
 
           next: (response: any) => {
-
+            console.log(response);
               if (response.code == 200) {
                   this._notificationService.openSnackBarSuccess(response);
                   setTimeout(() => {

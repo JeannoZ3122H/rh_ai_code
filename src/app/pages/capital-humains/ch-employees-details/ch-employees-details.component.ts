@@ -60,6 +60,7 @@ export class ChEmployeesDetailsComponent implements OnInit {
 
     public is_disabled: boolean = true;
     public is_disabled_contrats: boolean = true;
+    public timescontrats: boolean = true;
 
 
     public fonction: any;
@@ -155,12 +156,15 @@ export class ChEmployeesDetailsComponent implements OnInit {
     selectFonction(event: any) {
         this.fonction = event.value;
     }
+
     selectSituationMatrimoniale(event: any) {
         this.situation_matrimoniale = event.value;
     }
+
     selectCategorieProfessionnelle(event: any) {
         this.categorie_pro = event.value;
     }
+
     selectService(event: any) {
         this.service = event.value;
     }
@@ -168,6 +172,7 @@ export class ChEmployeesDetailsComponent implements OnInit {
     selectGenre(event: any) {
         this.genre = event.value;
     }
+
     selectContrats(event: any) {
         this.contrats = event.value;
     }
@@ -603,4 +608,5 @@ export class ChEmployeesDetailsComponent implements OnInit {
             },
         });
     }
+
 }

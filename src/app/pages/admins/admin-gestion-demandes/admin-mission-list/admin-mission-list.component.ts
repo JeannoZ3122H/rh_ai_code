@@ -4,7 +4,6 @@ import { Component, LOCALE_ID, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterModule } from '@angular/router';
 import { DeleteComponent } from '../../../../components/actions/delete/delete.component';
-import { AdminConsultePermissionComponent } from '../../../../dialogs/admin-dialogs/gestion-demande/admin-consulte-permission/admin-consulte-permission.component';
 import { UserDataManagerService } from '../../../../services/data-managers/user-data/user-data-manager.service';
 import { LoadingService } from '../../../../services/loadings/loading.service';
 import { NotificationService } from '../../../../services/notifications/notification.service';
@@ -137,4 +136,5 @@ export class AdminMissionListComponent implements OnInit {
           },
       });
   }
+  
 }

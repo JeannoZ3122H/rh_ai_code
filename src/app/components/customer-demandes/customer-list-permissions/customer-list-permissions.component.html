@@ -7,8 +7,8 @@
                     <div class="card-header d-flex justify-content-between">
                         <div class="card-title fw-bolder fs-5">
                             <button mat-button class="default__btn__lg">
-                                <mat-icon class="example-tab-icon text-dark">view_list</mat-icon>
-                                <span class="fw-bolder text-dark fs-5">Mes permissions</span>
+                                <mat-icon class="example-tab-icon  text-white">view_list</mat-icon>
+                                <span class="fw-bolder text-white fs-5">Mes permissions</span>
                             </button>
                             <button  mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
 
@@ -83,8 +83,8 @@
                                                 <td class="text-center"><p>{{ customer_permissions.fonction }}</p></td>
                                                 <td class="text-center"><p>{{ customer_permissions.service }}</p></td>
                                                 <td class="text-center">
-                                                    <button [matTooltip]="customer_permissions.responsable_new_actions == 1?'Consulter':'Nouveau'"  mat-icon-button>
-                                                        <mat-icon [class]="customer_permissions.responsable_new_actions == 1?'text-primary':'text-warning'">check_circle</mat-icon>
+                                                    <button [matTooltip]="customer_permissions.new_actions == 1?'Consulter':'Nouveau'"  mat-icon-button>
+                                                        <mat-icon [class]="customer_permissions.new_actions == 1?'text-primary':'text-warning'">check_circle</mat-icon>
                                                     </button>
                                                 </td>
                                                 <td class="text-center">

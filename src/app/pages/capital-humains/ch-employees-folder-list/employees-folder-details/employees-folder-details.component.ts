@@ -33,6 +33,7 @@ export class EmployeesFolderDetailsComponent implements OnInit {
 
     public list_files: any = [];
     public list_file_lenght: any;
+    public list_docprovide: any;
     public p: number = 1;
 
     public add_file: boolean = false;
@@ -64,6 +65,7 @@ export class EmployeesFolderDetailsComponent implements OnInit {
         setTimeout(() => {
             this.getDossiersFileList();
             this._loading.hide_loading();
+            this.getDocprovide();
         }, 1000);
 
     }
@@ -146,7 +148,28 @@ export class EmployeesFolderDetailsComponent implements OnInit {
             }
         });
     }
+    getDocprovide() {
 
+        this._loading.show_loading();
+        this._traitement.getDocProvide().subscribe({
+  
+            next: (response: any) => {
+              console.log(response);
+                setTimeout(() => {
+                    this.list_docprovide = response
+                    this._loading.hide_loading();
+                }, 1000);
+            },
+            error: (error: any) => {
+                if (error.status == 401) {
+                    this._notificationService.openSnackBarTokenExpired();
+                    localStorage.clear();
+                    this._router.navigateByUrl('/');
+  
+                }
+            }
+        });
+    }
 
     openDeleDialog(slug: string) {
         const dialog = this._dialog.open(DeleteComponent, {

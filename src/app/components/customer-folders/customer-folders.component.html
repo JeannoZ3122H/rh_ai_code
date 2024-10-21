@@ -28,28 +28,27 @@
                             </div>
                             <div class="card-body">
                                 <p class="mb-2 fw-bolder">
-                                    Liste des documents à fornir <br>
+                                    Liste des documents à fournir <br>
 
                                 </p>
                                 <div class="row">
+                                    @for (item of list_docprovide; track $index + 1) {
                                     <div class="col-4">
-                                        <ul class="list-group list-group-numbered text-start">
-                                            <li class="list-group-item">
-                                                Diplômes et certificat(s) de formation
-                                            </li>
-                                            <li class="list-group-item">
-                                                1 Photocopie de votre pièce d’identité
-                                            </li>
-                                            <li class="list-group-item">
-                                                1 Extrait du casier judiciaire
-                                            </li>
-                                            <li class="list-group-item">
-                                                1 Certificat de résidence
-                                            </li>
 
-                                        </ul>
-                                    </div>
-                                    <div class="col-4">
+                                            <ul class="list-group list-group-numbered text-start">
+
+                                                   
+                                                <li class="list-group-item">
+                                                    
+                                                    {{item.document }}
+                                                </li>
+                                            
+
+                                            </ul>
+                                     
+                                    </div>  
+                                }
+                                    <!-- <div class="col-4">
                                         <ul class="list-group list-group-numbered text-start">
                                             <li class="list-group-item">
                                                 1 Extrait d’acte de mariage
@@ -76,7 +75,7 @@
                                                 1 Relevé d’Identité Bancaire (RIB)
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                             </div>

@@ -6,7 +6,21 @@ import { UserDataManagerService } from '../../services/data-managers/user-data/u
 import { AuthService } from '../../services/auth/auth.service';
 import { NotificationService } from '../../services/notifications/notification.service';
 import { Location } from '@angular/common';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import 'moment/locale/fr';
 
+const MY_DATE_FORMAT = {
+    parse: {
+        dateInput: 'DD/MM/YYYY', // this is how your date will be parsed from Input
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY', // this is how your date will get displayed on the Input
+        monthYearLabel: 'MMMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY'
+    }
+};
 @Component({
     selector: 'app-employees-layout',
     standalone: true,
@@ -14,6 +28,11 @@ import { Location } from '@angular/common';
         RouterOutlet,
         MaterialModule,
         RouterModule
+    ],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'fr' },
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT }
     ],
     templateUrl: './employees-layout.component.html',
     styleUrl: './employees-layout.component.css',
@@ -36,12 +55,12 @@ export class EmployeesLayoutComponent implements OnInit {
             item_icon: "group_add",
             router: "/employees.profil"
         },
-        // {
-        //     id: 5,
-        //     item_name: "Mes présences",
-        //     item_icon: "list_alt",
-        //     router: "/employees.attendance"
-        // },
+        {
+            id: 3,
+            item_name: "Rupture contrat",
+            item_icon: "list_alt",
+            router: "/employees.rupture-contrat"
+        },
         /*
         {
             id: 6,
@@ -121,9 +140,12 @@ export class EmployeesLayoutComponent implements OnInit {
         private _userData: UserDataManagerService,
         private _notificationService: NotificationService,
         private _authService: AuthService,
-        private _router: Router
+        private _router: Router,
+        private __adapter: DateAdapter<Date>,
+
     ) {
         this.screenWidth = window.innerWidth;
+        this.__adapter.setLocale('fr');
         window.onresize = () => {
             // set screenWidth on screen size change
             this.screenWidth = window.innerWidth;

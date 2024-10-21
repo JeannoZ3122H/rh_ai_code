@@ -89,6 +89,7 @@ export class AdminListPermissionsComponent implements OnInit {
 
 
 
+
     consultePermission(data: any) {
         const dialogRef = this._dialog.open(AdminConsultePermissionComponent,
             {

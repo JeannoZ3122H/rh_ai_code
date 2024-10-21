@@ -10,14 +10,11 @@ export class AugmentationService {
 
   public headers: any;
 
-
-
     constructor(
         private _localStorage: StorageManagerService,
         private _api_url: EnvironmentsService,
         private _http: HttpClient,
     ) { }
-
 
     getToken = () => {
         const tokens = this._localStorage.getTokenToStorage();
@@ -29,13 +26,13 @@ export class AugmentationService {
 
     // send data conges
     addAugments = (data: any) => {
-        const url = this._api_url.apiUrl + 'store_permission';
+        const url = this._api_url.apiUrl + 'store_augmentation';
         return this._http.post(url, data, this.getToken());
     }
 
     // edit
     editDemandePermission = (slug: string) => {
-        const url = this._api_url.apiUrl + 'edit_permission/' + slug;
+        const url = this._api_url.apiUrl + 'edit_augmentation/' + slug;
 
         return this._http.get(url, this.getToken());
     }
@@ -43,32 +40,29 @@ export class AugmentationService {
     // SHOW PERMISSION
     showPermission = (slug: string) => {
         const url = this._api_url.apiUrl + 'edit_permission/' + slug;
-
         return this._http.get(url, this.getToken());
     }
 
     // updateDemandePermission
     updateAugmentation = (slug: any, data: any) => {
-        const url = this._api_url.apiUrl + 'update_permission/' + slug;
+        const url = this._api_url.apiUrl + 'update_augmentation/' + slug;
         return this._http.post(url, data, this.getToken());
     }
 
     // deleteDemandePermission
     deleteAugmentation = (slug: string) => {
-        const url = this._api_url.apiUrl + 'destroy_permission/' + slug;
+        const url = this._api_url.apiUrl + 'destroy_augmentation/' + slug;
 
         return this._http.get(url, this.getToken());
     }
-
-
 
     // get customer permission
-    getCustomerAUgmentation = (employe_matricule: any) => {
-        const url = this._api_url.apiUrl + 'customers_augmentation/' + employe_matricule;
-        return this._http.get(url, this.getToken());
-    }
+    // getCustomerAUgmentation = (employe_matricule: any) => {
+    //     const url = this._api_url.apiUrl + 'customers_augmentation/' + employe_matricule;
+    //     return this._http.get(url, this.getToken());
+    // }
 
-    // get  permission
+    // get  Augmentation
     getAugments = (employe_matricule: any) => {
         const url = this._api_url.apiUrl + 'get_augmentation/' + employe_matricule;
         return this._http.get(url, this.getToken());
@@ -76,7 +70,7 @@ export class AugmentationService {
 
     // get all permission
     getAllAugmentation = () => {
-        const url = this._api_url.apiUrl + 'get_all_permissions';
+        const url = this._api_url.apiUrl + 'get_all_augmentation';
         return this._http.get(url, this.getToken());
     }
 

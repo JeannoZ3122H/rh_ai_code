@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Nouveau document</h1>
+@if (is_loading == true) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
+<div mat-dialog-content>
+    <div class="row mt-2">
+        <div class="col-md-12 col-lg-12 form-floating">
+            <textarea class="form-control" [(ngModel)]="document" matInput placeholder="Ajouter un document a fournir" id="floatingTextarea2" style="height: 100px"></textarea>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-between">
+    <button mat-raised-button color="primary" mat-dialog-close>Annuler</button>
+    @if (is_update == true) {
+        <button mat-raised-button color="warn" (click)="updateDocProvide()">Modifier</button>
+    }
+    @if (is_update == false) {
+        <button  mat-raised-button color="warn" (click)="saveDocProvide()">Enregistrer</button>
+    }
+
+</div>
+
